@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+<<<<<<< HEAD
 dist
 dist-ssr
 *.local
@@ -23,4 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 
+=======
+>>>>>>> 9f0013a (Fix Vite build configurati53)
 .env
