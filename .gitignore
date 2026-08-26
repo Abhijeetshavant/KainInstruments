@@ -24,6 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 
-=======
->>>>>>> 9f0013a (Fix Vite build configurati53)
 .env
