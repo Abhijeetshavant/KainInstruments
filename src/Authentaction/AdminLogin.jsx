@@ -35,7 +35,7 @@ const AdminLogin = () => {
     }
 
     try {
-      // Get API URL from environment - NO TRAILING SLASH
+      // Get API URL from environment
       const API_URL =
         import.meta.env.VITE_API_URL || "https://kain-xi.vercel.app/api";
       // Remove trailing slash if exists
@@ -64,26 +64,17 @@ const AdminLogin = () => {
 
         // Store admin session with token
         localStorage.setItem("admin", "true");
-        localStorage.setItem("adminToken", response.data.data.token);
-        localStorage.setItem(
-          "adminUser",
-          JSON.stringify(response.data.data.user),
-        );
+        localStorage.setItem("adminToken", response.data.token);
+        localStorage.setItem("adminUser", JSON.stringify(response.data.user));
         localStorage.setItem("adminEmail", data.email.trim());
 
         // Store user info separately for easy access
-        if (response.data.data.user) {
-          localStorage.setItem(
-            "userName",
-            response.data.data.user.name || "Admin",
-          );
-          localStorage.setItem(
-            "userRole",
-            response.data.data.user.role || "admin",
-          );
+        if (response.data.user) {
+          localStorage.setItem("userName", response.data.user.name || "Admin");
+          localStorage.setItem("userRole", response.data.user.role || "admin");
           localStorage.setItem(
             "userCompany",
-            response.data.data.user.company || "KAIN Instruments",
+            response.data.user.company || "KAIN Instruments",
           );
         }
 
@@ -316,11 +307,11 @@ const AdminLogin = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-2 text-xs text-gray-400 mt-1">
               <span className="flex items-center gap-1">
-                📧 <span className="text-white">admin@kaininstruments.com</span>
+                📧 <span className="text-white">Admin@gmail.com</span>
               </span>
               <span className="hidden sm:block text-gray-600">|</span>
               <span className="flex items-center gap-1">
-                🔒 <span className="text-white">Admin@123</span>
+                🔒 <span className="text-white">Password</span>
               </span>
             </div>
           </motion.div>
