@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kaininstrumen.com/sitemap.xml
