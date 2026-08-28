@@ -182,6 +182,15 @@ const categories = [
       "https://res.cloudinary.com/ssxygquk/image/upload/v1785345268/industriesHardware_rigbvr.png",
     description: "Industrial hardware",
   },
+  // NEW: Testing Machines & Equipment
+  {
+    id: 23,
+    name: "Testing Machines",
+    slug: "testing-machines",
+    image:
+      "https://res.cloudinary.com/et9upkgl/image/upload/v1787838456/testingEquipment_myxphj.png",
+    description: "Testing machines & equipment",
+  },
 ];
 
 const CategoryGrid = () => {
@@ -218,7 +227,7 @@ const CategoryGrid = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-5">
           {categories.map((category, index) => (
             <motion.div
               key={category.id}
@@ -232,37 +241,40 @@ const CategoryGrid = () => {
                 to={`/products?category=${category.slug}`}
                 className="block bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#333333] hover:border-[#FF6B00]/50 transition-all duration-300 group"
               >
-                {/* Category Image */}
-                <div className="relative w-full h-32 overflow-hidden bg-[#0D0D0D]">
+                {/* Category Image - FIXED ZOOM ISSUE */}
+                <div className="relative w-full h-64 sm:h-48 md:h-40 lg:h-36 xl:h-32 overflow-hidden bg-[#0D0D0D]">
                   <img
                     src={category.image}
                     alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     onError={(e) => {
-                      // Fallback if image fails to load
                       e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.3em' fill='%23666' font-size='14'%3E${category.name}%3C/text%3E%3C/svg%3E`;
                     }}
                   />
 
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#FF6B00]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Gradient overlay - FIXED: Now it's always visible for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                  {/* Category name overlay at bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
-                    <h3 className="text-xs font-medium text-white text-center">
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-[#FF6B00]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Category name overlay at bottom - FIXED: Better visibility */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-3">
+                    <h3 className="text-lg sm:text-base md:text-sm font-semibold text-white text-center drop-shadow-lg">
                       {category.name}
                     </h3>
+                    <p className="text-xs text-gray-300 text-center mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md">
+                      {category.description}
+                    </p>
                   </div>
                 </div>
 
-                {/* Description */}
-                <div className="p-3 text-center">
-                  <p className="text-xs text-gray-500 line-clamp-1">
-                    {category.description}
+                {/* Description - MOVED: Now inside the image overlay for cleaner design */}
+                <div className="p-3 text-center border-t border-[#333333]">
+                  <p className="text-xs text-gray-500">
+                    {category.products || "View Products"}
                   </p>
-
-                  {/* Hover Indicator */}
                   <div className="mt-1.5 h-0.5 w-8 mx-auto bg-[#FF6B00]/0 group-hover:bg-[#FF6B00] transition-all duration-300" />
                 </div>
               </Link>

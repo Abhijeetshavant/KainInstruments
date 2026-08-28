@@ -98,12 +98,12 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <FaWhatsapp className="text-green-500" />
                 <a
-                  href="https://wa.me/919911109709"
+                  href="https://wa.me/919650895809"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#FF6B00] transition-colors"
                 >
-                  +91 99111 09709
+                  +91 9650895809
                 </a>
               </li>
               <li className="flex items-center gap-3">

@@ -129,7 +129,7 @@ Please get back to me at the earliest. Thank you!`;
   // Handle WhatsApp send
   const handleWhatsAppSend = () => {
     const message = getWhatsAppMessage();
-    const whatsappNumber = "919911109709";
+    const whatsappNumber = "919650895809";
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
     toast.success("Opening WhatsApp...");
@@ -191,7 +191,7 @@ Please get back to me at the earliest. Thank you!`;
                 label: "WhatsApp",
                 value: "Chat Now",
                 color: "text-green-500",
-                href: "https://wa.me/919911109709",
+                href: "https://wa.me/919650895809",
               },
               {
                 icon: FaPhone,
@@ -548,7 +548,7 @@ Please get back to me at the earliest. Thank you!`;
                         href="tel:+919911109709"
                         className="text-gray-400 hover:text-[#FF6B00] transition-colors text-sm block"
                       >
-                        +91 9911109709 (WhatsApp)
+                        +91 9650895809 (WhatsApp)
                       </a>
                     </div>
                   </div>
@@ -584,7 +584,7 @@ Please get back to me at the earliest. Thank you!`;
                     <div className="flex items-center gap-3 mb-2">
                       <FaWhatsapp className="text-green-500 flex-shrink-0" />
                       <a
-                        href="https://wa.me/919911109709"
+                        href="https://wa.me/919650895809"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-green-500 transition-colors text-sm"
@@ -640,7 +640,7 @@ Please get back to me at the earliest. Thank you!`;
 
               {/* WhatsApp Float Button */}
               <motion.a
-                href="https://wa.me/919911109709"
+                href="https://wa.me/919650895809"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, scale: 0.8 }}

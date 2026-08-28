@@ -12,6 +12,8 @@ import {
   Package,
   X,
   Eye,
+  Home,
+  LogOut,
 } from "lucide-react";
 import axios from "axios";
 
@@ -101,6 +103,21 @@ const AdminDashboard = () => {
     navigate(`/products/${product._id}`);
   };
 
+  const handleGoHome = () => {
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminUser");
+    localStorage.removeItem("adminEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userCompany");
+    localStorage.removeItem("admin");
+    navigate("/admin/login");
+  };
+
   const filteredProducts = products.filter(
     (product) =>
       product.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -115,19 +132,41 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] p-6">
-      {/* Header */}
+      {/* Header with Home Button */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-4xl font-bold text-white">Dashboard</h1>
           <p className="text-gray-400 mt-1">Manage your products</p>
         </div>
-        <button
-          onClick={handleAddProduct}
-          className="mt-4 md:mt-0 flex items-center gap-2 px-6 py-3 bg-[#FF6B00] text-white rounded-xl hover:bg-[#CC5500] transition-all hover:scale-105"
-        >
-          <Plus size={20} />
-          Add New Product
-        </button>
+        <div className="flex items-center gap-3 mt-4 md:mt-0">
+          {/* Go to Home Button */}
+          <button
+            onClick={handleGoHome}
+            className="flex items-center gap-2 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-xl transition-all hover:scale-105 border border-gray-700"
+          >
+            <Home size={20} />
+            <span className="hidden sm:inline">Home</span>
+          </button>
+
+          {/* Add Product Button */}
+          <button
+            onClick={handleAddProduct}
+            className="flex items-center gap-2 px-6 py-3 bg-[#FF6B00] text-white rounded-xl hover:bg-[#CC5500] transition-all hover:scale-105"
+          >
+            <Plus size={20} />
+            Add New Product
+          </button>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-all hover:scale-105 border border-red-500/20"
+            title="Logout"
+          >
+            <LogOut size={20} />
+            <span className="hidden sm:inline">Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* Stats */}
@@ -185,13 +224,21 @@ const AdminDashboard = () => {
             <div className="flex bg-[#0D0D0D] rounded-lg p-1 border border-[#333333]">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-lg transition ${viewMode === "grid" ? "bg-[#FF6B00] text-white" : "hover:bg-[#333333] text-gray-400"}`}
+                className={`p-2 rounded-lg transition ${
+                  viewMode === "grid"
+                    ? "bg-[#FF6B00] text-white"
+                    : "hover:bg-[#333333] text-gray-400"
+                }`}
               >
                 <Grid size={20} />
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 rounded-lg transition ${viewMode === "list" ? "bg-[#FF6B00] text-white" : "hover:bg-[#333333] text-gray-400"}`}
+                className={`p-2 rounded-lg transition ${
+                  viewMode === "list"
+                    ? "bg-[#FF6B00] text-white"
+                    : "hover:bg-[#333333] text-gray-400"
+                }`}
               >
                 <List size={20} />
               </button>
@@ -238,7 +285,11 @@ const AdminDashboard = () => {
                 }`}
               >
                 <div
-                  className={`relative ${viewMode === "list" ? "w-32 h-32 flex-shrink-0" : "w-full h-48"}`}
+                  className={`relative ${
+                    viewMode === "list"
+                      ? "w-32 h-32 flex-shrink-0"
+                      : "w-full h-48"
+                  }`}
                 >
                   <img
                     src={
@@ -275,7 +326,11 @@ const AdminDashboard = () => {
                 </div>
 
                 <div
-                  className={`p-4 flex-1 ${viewMode === "list" ? "flex items-center justify-between" : ""}`}
+                  className={`p-4 flex-1 ${
+                    viewMode === "list"
+                      ? "flex items-center justify-between"
+                      : ""
+                  }`}
                 >
                   <div>
                     <h3 className="font-semibold text-white line-clamp-1">
