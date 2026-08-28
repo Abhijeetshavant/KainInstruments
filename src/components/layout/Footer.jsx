@@ -109,10 +109,10 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <FaEnvelope className="text-[#FF6B00]" />
                 <a
-                  href="mailto:info@kaininstruments.com"
+                  href="mailto:Kaininstruments@gmail.com"
                   className="hover:text-[#FF6B00] transition-colors"
                 >
-                  info@kaininstruments.com
+                  Kaininstruments@gmail.com
                 </a>
               </li>
             </ul>

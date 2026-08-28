@@ -561,7 +561,7 @@ Please get back to me at the earliest. Thank you!`;
                         href="mailto:info@kaininstruments.com"
                         className="text-gray-400 hover:text-[#FF6B00] transition-colors text-sm"
                       >
-                        info@kaininstruments.com
+                        Kaininstruments@gmail.com
                       </a>
                     </div>
                   </div>
