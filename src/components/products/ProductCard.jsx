@@ -1,7 +1,8 @@
 // src/components/products/ProductCard.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { Plus, Eye } from "lucide-react";
+import { Plus, Eye, Whatsapp } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useQuoteCart } from "../../hooks/useQuoteCart";
 
 const ProductCard = ({ product }) => {
@@ -11,6 +12,53 @@ const ProductCard = ({ product }) => {
   const imageUrl =
     product.image ||
     "https://via.placeholder.com/400x300/333333/666666?text=No+Image";
+
+  // Generate WhatsApp message with product details
+  const generateWhatsAppMessage = () => {
+    const message = `*🔧 KAIN Instruments - Product Inquiry*
+
+*📋 Product Details:*
+━━━━━━━━━━━━━━━━━━━━
+🆔 Product ID: ${product.id || "N/A"}
+📛 Name: ${product.name || "N/A"}
+🏷️ Brand: ${product.brand || "N/A"}
+📂 Category: ${product.category || "N/A"}
+📦 Model: ${product.model || "N/A"}
+📊 Stock Status: ${product.stockStatus || "Available"}
+
+*📝 Specifications:*
+${
+  product.specs && Object.keys(product.specs).length > 0
+    ? Object.entries(product.specs)
+        .map(([key, value]) => `  • ${key}: ${value}`)
+        .join("\n")
+    : "  • No specifications available"
+}
+
+*🔗 Product Link:*
+${window.location.origin}/products/${product.id}
+
+━━━━━━━━━━━━━━━━━━━━
+*👤 Customer Details:*
+Name: [Your Name]
+Phone: [Your Number]
+Company: [Your Company]
+
+*💬 Message:*
+I am interested in this product. Please provide more information and pricing.
+
+---
+*Sent from KAIN Instruments Website*`;
+
+    return encodeURIComponent(message);
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "919911109709";
+    const message = generateWhatsAppMessage();
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="group bg-[#1A1A1A] rounded-lg border border-[#333333] overflow-hidden hover:border-[#FF6B00] transition-all duration-300 card-hover">
@@ -29,6 +77,13 @@ const ProductCard = ({ product }) => {
 
         {/* Quick action buttons */}
         <div className="absolute inset-0 bg-[#0D0D0D]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+          <button
+            onClick={handleWhatsAppClick}
+            className="p-2 bg-green-500 rounded-lg hover:bg-green-600 transition-colors transform hover:scale-110"
+            title="Inquire on WhatsApp"
+          >
+            <FaWhatsapp className="w-4 h-4 text-white" />
+          </button>
           <button
             onClick={() => addToCart({ ...product, price: 0 })}
             className="p-2 bg-[#FF6B00] rounded-lg hover:bg-[#CC5500] transition-colors transform hover:scale-110"
@@ -100,12 +155,22 @@ const ProductCard = ({ product }) => {
           </div>
         )}
 
-        <button
-          onClick={() => addToCart({ ...product, price: 0 })}
-          className="w-full py-2 text-sm bg-[#FF6B00]/10 text-[#FF6B00] rounded-lg hover:bg-[#FF6B00] hover:text-white transition-colors"
-        >
-          Request Quote
-        </button>
+        {/* Buttons */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => addToCart({ ...product, price: 0 })}
+            className="flex-1 py-2 text-sm bg-[#FF6B00]/10 text-[#FF6B00] rounded-lg hover:bg-[#FF6B00] hover:text-white transition-colors"
+          >
+            Request Quote
+          </button>
+          <button
+            onClick={handleWhatsAppClick}
+            className="px-4 py-2 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center gap-1"
+          >
+            <FaWhatsapp className="w-4 h-4" />
+            <span className="hidden sm:inline">Inquire</span>
+          </button>
+        </div>
       </div>
     </div>
   );
