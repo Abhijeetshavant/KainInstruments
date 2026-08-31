@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Loader from "./components/ui/Loader";
 import { CartProvider } from "./context/CartContext";
+// Import NotFound directly (no lazy loading needed)
+import NotFound from "./pages/NotFound";
 
 // Lazy load pages
 const Home = lazy(() => import("./pages/Home"));
@@ -38,6 +40,9 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/products/add" element={<ProductForm />} />
           <Route path="/admin/products/edit/:id" element={<ProductForm />} />
+
+          {/* 404 Route - MUST BE LAST */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </CartProvider>

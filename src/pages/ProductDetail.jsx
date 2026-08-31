@@ -12,6 +12,7 @@ import {
   Star,
   ChevronRight,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
 import { useQuoteCart } from "../hooks/useQuoteCart";
 
@@ -27,6 +28,58 @@ const ProductDetail = () => {
   const [error, setError] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+  // Generate WhatsApp message with product details
+  const generateWhatsAppMessage = (product) => {
+    const message = `*🔧 KAIN Instruments - Product Inquiry*
+
+*📋 Product Details:*
+━━━━━━━━━━━━━━━━━━━━
+🆔 Product ID: ${product.id || "N/A"}
+📛 Name: ${product.name || "N/A"}
+🏷️ Brand: ${product.brand || "N/A"}
+📂 Category: ${product.category || "N/A"}
+📦 Model: ${product.model || "N/A"}
+📊 Stock Status: ${product.stockStatus || "Available"}
+🛡️ Warranty: ${product.warranty || "N/A"}
+
+*📝 Description:*
+${product.description || "No description available"}
+
+*📋 Specifications:*
+${
+  product.specs && Object.keys(product.specs).length > 0
+    ? Object.entries(product.specs)
+        .map(([key, value]) => `  • ${key}: ${value}`)
+        .join("\n")
+    : "  • No specifications available"
+}
+
+*🔗 Product Link:*
+${window.location.origin}/products/${product.id}
+
+━━━━━━━━━━━━━━━━━━━━
+*👤 Customer Details:*
+Name: [Your Name]
+Phone: [Your Number]
+Company: [Your Company]
+
+*💬 Message:*
+I am interested in this product. Please provide more information and pricing.
+
+---
+*Sent from KAIN Instruments Website*`;
+
+    return encodeURIComponent(message);
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!product) return;
+    const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "919911109709";
+    const message = generateWhatsAppMessage(product);
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -247,7 +300,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Actions */}
+            {/* Actions - Added WhatsApp Button */}
             <div className="flex flex-wrap gap-4 mb-8">
               <button
                 onClick={handleAddToCart}
@@ -255,6 +308,13 @@ const ProductDetail = () => {
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Add to Quote
+              </button>
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex-1 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                <FaWhatsapp className="w-5 h-5" />
+                <span>Inquire on WhatsApp</span>
               </button>
               <button className="p-3 bg-[#1A1A1A] border border-[#333333] rounded-lg hover:border-[#FF6B00] transition-colors">
                 <Share2 className="w-5 h-5 text-gray-400" />
@@ -343,18 +403,18 @@ const ProductDetail = () => {
               Related Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedProducts.map((product) => (
+              {relatedProducts.map((related) => (
                 <Link
-                  key={product.id}
-                  to={`/products/${product.id}`}
+                  key={related.id}
+                  to={`/products/${related.id}`}
                   className="bg-[#1A1A1A] rounded-lg border border-[#333333] p-4 hover:border-[#FF6B00] transition-all card-hover"
                 >
                   <div className="text-2xl text-center mb-2">⚙️</div>
                   <h3 className="text-sm font-medium text-white text-center line-clamp-2">
-                    {product.name}
+                    {related.name}
                   </h3>
                   <p className="text-xs text-gray-500 text-center mt-1">
-                    {product.category}
+                    {related.category}
                   </p>
                 </Link>
               ))}
